@@ -14,7 +14,7 @@ var config = {
         app: path.resolve(app_dir, 'app.js')
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'public', 'build'),
         filename: '[name].[chunkhash].js',
         chunkFilename: '[name].[chunkhash].js'
     },

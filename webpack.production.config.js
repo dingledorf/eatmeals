@@ -3,6 +3,7 @@
  */
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var node_modules_dir = path.join(__dirname, 'node_modules');
 var AssetsPlugin = require('assets-webpack-plugin');
 var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
@@ -50,6 +51,10 @@ var config = {
         noParse: []
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: app_dir + '/index.html',
+            inject: 'body'
+        }),      
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity),
         new AssetsPlugin({
             filename: 'webpack-assets.js',

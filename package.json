@@ -6,6 +6,9 @@
   "repository": "https://github.com/angular/angular-seed",
   "license": "MIT",
   "main": "webpack.config.js",
+  "engines" : {
+    "node" : ">=4.4.4 <6.1.0"
+  },
   "scripts": {
     "build": "webpack -p --config webpack.production.config.js",
     "dev": "babel-node ./server.js",

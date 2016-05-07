@@ -1,0 +1,1 @@
+window.staticMap = {"vendors":{"js":"vendors.js"},"app":{"js":"app.adc1a1ff35e54aca055a.js"}}

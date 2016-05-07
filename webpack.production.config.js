@@ -10,7 +10,7 @@ var app_dir = path.join(__dirname, 'app');
 
 var config = {
     entry: {
-        vendors: ['lodash'],
+        vendors: ['lodash', 'angular'],
         app: path.resolve(app_dir, 'app.js')
     },
     output: {
@@ -18,19 +18,11 @@ var config = {
         filename: '[name].[chunkhash].js',
         chunkFilename: '[name].[chunkhash].js'
     },
-    resolve: {
-        alias: {},
-        modulesDirectories: [
-            'app',
-            'node_modules'
-        ],
-        extensions: ['', '.json', '.js', '.jsx']
-    },    
     module: {
         loaders: [{
             test: /\.jsx?$/,
-            include: [app_dir],
-            loaders: ['babel']
+            loaders: ['babel'],
+            exclude: [node_modules_dir]
         }, {
             test: /\.scss$/,
             loader: 'style!css!sass'
@@ -76,7 +68,8 @@ var config = {
         new webpack.optimize.UglifyJsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': '"production"'
+                'NODE_ENV': '"production"',
+                'PORT': '80'
             },
             '__appSettings': {
                 'apiEnv': '"live"'

@@ -1,25 +1,42 @@
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
-import config from './webpack.config';
+var express = require('express');
+var path = require('path');
+var httpProxy = require('http-proxy');
 
-const APP_PORT = 8080;
-config.entry.unshift(`webpack-dev-server/client?http://localhost:${APP_PORT}`, 'webpack/hot/dev-server');
+var proxy = httpProxy.createProxyServer();
+var app = express();
 
-new WebpackDevServer(webpack(config), {
-    contentBase: 'build',
-    quiet: false,
-    noInfo: true,
-    hot: true,
-    inline: true,
-    lazy: false,
-    publicPath: config.output.publicPath,
-    headers: {'Access-Control-Allow-Origin': '*'},
-    stats: {colors: true},
-    historyApiFallback: true
-}).listen(APP_PORT, 'localhost', function (err) {
-    if (err) {
-        console.log(err);
-    }
+var isProduction = process.env.NODE_ENV === 'production';
+var port = isProduction ? process.env.PORT : 8080;
+var publicPath = path.resolve(__dirname, 'public');
 
-    console.log(`WebpackDevServer now running at localhost:${APP_PORT}`);
+app.use(express.static(publicPath));
+
+// We only want to run the workflow when not in production
+if (!isProduction) {
+
+  // We require the bundler inside the if block because
+  // it is only needed in a development environment. Later
+  // you will see why this is a good idea
+  var bundle = require('./server/bundle.js');
+  bundle();
+
+  // Any requests to localhost:8080/build is proxied
+  // to webpack-dev-server
+  app.all('/build/*', function (req, res) {
+    proxy.web(req, res, {
+      target: 'http://localhost:8080'
+    });
+  });
+
+}
+
+// It is important to catch any errors from the proxy or the
+// server will crash. An example of this is connecting to the
+// server when webpack is bundling
+proxy.on('error', function(e) {
+  console.log('Could not connect to proxy, please try again...');
+});
+
+app.listen(port, function () {
+  console.log('Server running on port ' + port);
 });

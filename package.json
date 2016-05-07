@@ -13,10 +13,9 @@
   },
   "scripts": {
     "build": "webpack -p --config webpack.production.config.js",
-    "dev": "babel-node ./server.js",
-    "postinstall": "bower install",
+    "postinstall": "bower install && babel-node ./deploy.js",
     "prestart": "npm install",
-    "start": "webpack -p --config webpack.production.config.js",
+    "start": "babel-node ./server.js",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",
@@ -27,7 +26,6 @@
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
   },
   "devDependencies": {
-    "babel": "^6.5.2",
     "babel-cli": "^6.8.0",
     "babel-core": "^6.8.0",
     "babel-loader": "^6.2.4",
@@ -36,7 +34,6 @@
     "exports-loader": "^0.6.3",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.3",
-    "http-server": "^0.6.1",
     "imports-loader": "^0.6.5",
     "jasmine-core": "^2.3.4",
     "karma": "~0.12",
@@ -60,7 +57,10 @@
     "assets-webpack-plugin": "^3.4.0",
     "bower": "^1.3.1",
     "chunk-manifest-webpack-plugin": "0.0.1",
+    "express": "^4.13.4",
     "html-webpack-plugin": "^2.16.1",
+    "http-proxy": "^1.13.2",
+    "http-server": "^0.6.1",
     "lodash": "^4.11.2",
     "webpack": "^1.13.0"
   }

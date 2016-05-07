@@ -3,29 +3,20 @@
  */
 var path = require('path');
 var webpack = require('webpack');
-const node_modules_dir = path.join(__dirname, 'node_modules');
-const app_dir = path.join(__dirname, 'app');
+var node_modules_dir = path.join(__dirname, 'node_modules');
+var AssetsPlugin = require('assets-webpack-plugin');
+var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+var app_dir = path.join(__dirname, 'app');
 
-const deps = [
-    './bower/lib/bin/bower.js'
-];
-
-const config = {
-    entry: [
-        path.resolve(app_dir, 'app.js')
-    ],
-    resolve: {
-        alias: {},
-        modulesDirectories: [
-            'app',
-            'node_modules'
-        ],
-        extensions: ['', '.json', '.js', '.jsx']
+var config = {
+    entry: {
+        vendors: ['lodash'],
+        app: path.resolve(app_dir, 'app.js')
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js',
-        publicPath: '/assets/'
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[chunkhash].js',
+        chunkFilename: '[name].[chunkhash].js'
     },
     module: {
         loaders: [{
@@ -52,6 +43,9 @@ const config = {
             test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff'
         }, {
             test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader?name=[name].[ext]'
+        }, {
+            test: /\.html$/,
+            loader: 'raw'
         }],
         noParse: []
     },
@@ -89,15 +83,5 @@ const config = {
         new webpack.HotModuleReplacementPlugin()
     ]
 };
-
-// Run through deps and extract the first part of the path,
-// as that is what you use to require the actual node modules
-// in your code. Then use the complete path to point to the correct
-// file and make sure webpack does not try to parse it
-deps.forEach(function (dep) {
-    var depPath = path.resolve(node_modules_dir, dep);
-    config.resolve.alias[dep.split(path.sep)[0]] = depPath;
-    config.module.noParse.push(depPath);
-});
 
 export default config;

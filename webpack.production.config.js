@@ -1,8 +1,8 @@
 /*global __dirname
 
  */
-import path from 'path';
-import webpack from 'webpack';
+var path = require('path');
+var webpack = require('webpack');
 const node_modules_dir = path.join(__dirname, 'node_modules');
 const app_dir = path.join(__dirname, 'app');
 

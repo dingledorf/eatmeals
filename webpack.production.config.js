@@ -18,6 +18,14 @@ var config = {
         filename: '[name].[chunkhash].js',
         chunkFilename: '[name].[chunkhash].js'
     },
+    resolve: {
+        alias: {},
+        modulesDirectories: [
+            'app',
+            'node_modules'
+        ],
+        extensions: ['', '.json', '.js', '.jsx']
+    },    
     module: {
         loaders: [{
             test: /\.jsx?$/,

@@ -15,7 +15,7 @@ var config = {
     },
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
-        filename: '[name].[chunkhash].js',
+        filename: 'bundle.js',
         chunkFilename: '[name].[chunkhash].js'
     },
     module: {

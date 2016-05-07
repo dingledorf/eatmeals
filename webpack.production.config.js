@@ -6,14 +6,13 @@ import webpack from 'webpack';
 const node_modules_dir = path.join(__dirname, 'node_modules');
 const app_dir = path.join(__dirname, 'app');
 
-
 const deps = [
     './bower/lib/bin/bower.js'
 ];
 
 const config = {
     entry: [
-        path.resolve(app_dir, 'Main.js')
+        path.resolve(app_dir, 'app.js')
     ],
     resolve: {
         alias: {},
@@ -26,7 +25,7 @@ const config = {
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
-        publicPath: '/static/'
+        publicPath: '/assets/'
     },
     module: {
         loaders: [{

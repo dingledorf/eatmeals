@@ -58,6 +58,10 @@ var config = {
         extensions: ['', '.json', '.js', '.jsx']
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: app_dir + '/index.html',
+            inject: 'body'
+        }),      
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity),
         new AssetsPlugin({
             filename: 'webpack-assets.js',

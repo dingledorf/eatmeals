@@ -50,6 +50,11 @@ var config = {
         }],
         noParse: []
     },
+    resolve: {
+        root: [
+            node_modules_dir
+        ]
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: app_dir + '/index.html',

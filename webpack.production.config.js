@@ -22,8 +22,8 @@ var config = {
     module: {
         loaders: [{
             test: /\.jsx?$/,
-            loaders: ['babel'],
-            exclude: [node_modules_dir]
+            include: [app_dir],
+            loaders: ['babel']
         }, {
             test: /\.scss$/,
             loader: 'style!css!sass'
@@ -86,7 +86,6 @@ var config = {
             'fetch': 'imports?this=>global!exports?global.fetch!isomorphic-fetch'
             ,'configureApplicationStore': 'exports?configureStore!' +  app_dir + '/global/redux/ConfigureStore.dev.js'
         }),*/
-        new webpack.HotModuleReplacementPlugin()
     ]
 };
 

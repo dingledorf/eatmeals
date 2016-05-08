@@ -11,7 +11,7 @@ var app_dir = path.join(__dirname, 'app');
 
 var config = {
     entry: {
-        vendors: ['lodash', 'angular'],
+        vendors: ['lodash'],
         app: path.resolve(app_dir, 'app.js')
     },
     output: {

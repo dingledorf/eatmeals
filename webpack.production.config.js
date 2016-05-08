@@ -51,9 +51,11 @@ var config = {
         noParse: []
     },
     resolve: {
-        root: [
-            node_modules_dir
-        ]
+        modulesDirectories: [
+            'app',
+            'node_modules'
+        ],
+        extensions: ['', '.json', '.js', '.jsx']
     },
     plugins: [
         new HtmlWebpackPlugin({

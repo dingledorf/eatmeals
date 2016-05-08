@@ -58,7 +58,7 @@ var config = {
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity),
         new AssetsPlugin({
             filename: 'webpack-assets.js',
-            path: path.resolve(__dirname, 'dist'),
+            path: path.resolve(__dirname, 'public', 'build'),
             processOutput: function(assets) {
                 return 'window.staticMap = ' + JSON.stringify(assets);
             }
@@ -73,8 +73,7 @@ var config = {
         new webpack.optimize.UglifyJsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': '"production"',
-                'PORT': '80'
+                'NODE_ENV': '"production"'
             },
             '__appSettings': {
                 'apiEnv': '"live"'

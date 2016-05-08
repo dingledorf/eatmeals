@@ -7,8 +7,7 @@ var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 8080;
-var publicPath = path.resolve(__dirname, 'public');
-
+var publicPath = path.resolve(__dirname, 'public', 'build');
 app.use(express.static(publicPath));
 
 // We only want to run the workflow when not in production
@@ -27,7 +26,6 @@ if (!isProduction) {
       target: 'http://localhost:8080'
     });
   });
-
 }
 
 // It is important to catch any errors from the proxy or the
